@@ -1,4 +1,4 @@
-# temel_app
+# OnlineCourse_app
 
 Ui DESİGN DENEMESİ
 
