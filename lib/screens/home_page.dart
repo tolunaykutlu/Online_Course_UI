@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                 ),
                 space(),
                 const CustomLessonCard(
-                  isNew: false,
+                  isNew: true,
                 ),
                 space(),
                 const CustomLessonCard(
@@ -56,9 +56,10 @@ class HomePage extends StatelessWidget {
             child: ListView.builder(
               itemCount: 4,
               itemBuilder: (context, index) {
-                return continueLessons(
+                return ContinueLessons(
+                  index: index,
                   size: size,
-                  percent: 0.7,
+                  percent: 0.5 + (index * 0.15),
                 );
               },
             ),
@@ -85,10 +86,10 @@ class HomePage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
+                const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "Total Hours",
                       style: TextStyle(color: Colors.white, fontSize: 15),
@@ -103,10 +104,10 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 vDivider(),
-                Column(
+                const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "Daily Streaks",
                       style: TextStyle(color: Colors.white, fontSize: 15),
@@ -121,10 +122,10 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 vDivider(),
-                Column(
+                const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "Friends",
                       style: TextStyle(color: Colors.white, fontSize: 15),
@@ -155,13 +156,15 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class continueLessons extends StatelessWidget {
+class ContinueLessons extends StatelessWidget {
   final double percent;
-  const continueLessons({
-    super.key,
-    required this.size,
+  final int index;
+  const ContinueLessons({
+    Key? key,
     required this.percent,
-  });
+    required this.size,
+    required this.index,
+  }) : super(key: key);
 
   final Size size;
 
@@ -191,10 +194,10 @@ class continueLessons extends StatelessWidget {
                       child: Row(
                         children: [
                           const Icon(Icons.adb),
-                          Column(
+                          const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text("ıntro to Cyber-Security"),
                               Text("Paul Newman")
                             ],
@@ -205,14 +208,14 @@ class continueLessons extends StatelessWidget {
                           CircularPercentIndicator(
                               // this is a pub package
                               fillColor: Colors.transparent,
-                              progressColor: Color(0xffFF6600),
-                              radius: 20,
+                              progressColor: const Color(0xffFF6600),
+                              radius: 30,
                               percent: percent,
                               lineWidth: 3,
                               animation: true,
-                              center: const Text(
-                                "%70",
-                                style: TextStyle(color: Colors.white),
+                              center: Text(
+                                "%${(0.5 + (index * 0.15)) * 100}",
+                                style: const TextStyle(color: Colors.white),
                               )),
                         ],
                       ),
@@ -221,7 +224,7 @@ class continueLessons extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         )
       ],
@@ -322,7 +325,7 @@ class _NotificationCardState extends State<NotificationCard> {
     return Stack(
       children: [
         Card(
-          color: const Color(0xff404040).withOpacity(0.4),
+          color: const Color(0xff404040).withValues(alpha: 0.4),
           shape: const CircleBorder(),
           child: IconButton(
               onPressed: () {
@@ -363,7 +366,7 @@ class CustomAppBar extends StatelessWidget {
         Expanded(
           flex: 0,
           child: CircleAvatar(
-            backgroundColor: const Color(0xff404040).withOpacity(0.4),
+            backgroundColor: const Color(0xff404040).withValues(alpha: 0.4),
             child: const Icon(
               Icons.person_3_rounded,
               color: Color(0xffFFC107),
